@@ -30,6 +30,11 @@ public class LeadController {
 	@Autowired
 	private LeadService leadService;
 	
+	@GetMapping(path = "/{id}")
+	public Lead umLead(@PathVariable Integer id) {
+		return leadService.getLead(id);		
+	}
+	
 	@GetMapping
 	public List<Lead> todos(Lead filtro) {
 		return leadService.filtraPor(filtro);
