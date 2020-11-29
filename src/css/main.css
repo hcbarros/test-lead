@@ -3482,6 +3482,23 @@ body .owl-dots .owl-dot.active {
       bottom: 15px;
     }
   }
+
+  #img-hide {
+    display: none;
+  }
+
+  #img-show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 310px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1001;    
+    transition: all 0.3s ease-in-out;    
+  }
   #modal-hide {
     display: none;
     transition: all 0.3s ease-in-out;
@@ -3499,7 +3516,7 @@ body .owl-dots .owl-dot.active {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 999999;
+    z-index: 1000;
     transition: all 0.3s ease-in-out;
   }
   #modal-whatsapp .row,
@@ -3576,7 +3593,7 @@ body .owl-dots .owl-dot.active {
     font-size: 0.8rem;
     color: #ff0000;
   }
-  .modal-body button {
+  .modal-body button {            
     background: #0dc143;
     cursor: pointer;
     color: #fff;

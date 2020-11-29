@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import logo from '../../images/misc/logo.png';
 import whatsapp from '../../images/svg/whatsapp.svg';  
+import loader from '../../images/loader.gif';
 
 
 export default class extends React.Component {
@@ -10,7 +11,8 @@ export default class extends React.Component {
         super(props);
 
         this.state = {          
-            showResults: false
+            showResults: false,
+            imgShow: false
         }       
 
         this.formNome = React.createRef();
@@ -29,18 +31,28 @@ export default class extends React.Component {
     handleSubmit = async (event) => {
         event.preventDefault();
 
-       axios.post("http://localhost:8080/test-lead/lead", 
+       this.setState({imgShow: true}); 
+
+       axios.post("https://test-lead-api.herokuapp.com/test-lead/lead", 
                 {nome: this.formNome.current.value,
                  email: this.formEmail.current.value,
                  telefone: this.formPhone.current.value}   
-             )//response.config.url
-            .then(response => alert(JSON.stringify(response)))
-            .catch(error => alert(error))                             
+             )
+            .then((response) => {
+                
+                this.setState({imgShow: false});
+                alert(JSON.stringify(response))
+             })
+            .catch((error) =>  {
+            
+                this.setState({imgShow: false});
+                alert(error)}
+            )                             
      }
 
-     
+         
     render() {
-    
+        
         return (        
 
             <div>
@@ -71,8 +83,7 @@ export default class extends React.Component {
                 </a>            
 
             </footer>
-
-
+            
             <div className="container-fluid" id={this.state.showResults ? 'modal-show' : 'modal-hide'} >
                 <div className="row d-flex justify-content-center align-items-center">
                     <div className="col-12 d-flex justify-content-center align-items-center">
@@ -92,12 +103,16 @@ export default class extends React.Component {
                                     <div class="form-group">
                                         <input placeholder="Telefone" className="form-control" ref={this.formPhone} type="text" name="phone" id="telefone"/>
                                     </div>
-                                    <button id="send">Enviar</button>
-                                </form>                            
+                                    <button id="send" style={{visibility: this.state.imgShow ? 'hidden' : 'visible'}}>Enviar</button>                                    
+                                </form>                                                            
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div id={this.state.imgShow ? 'img-show' : 'img-hide'}>
+                <img src={loader} alt="loader"></img>
             </div>
 
             </div>
