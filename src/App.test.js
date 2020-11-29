@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import App from './App';
+import App from './components/App';
 
 describe('App', () => {
     test('Should be App', () => {
