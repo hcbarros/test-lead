@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Cabecalho from './components/1 - cabecalho/cabecalho';
+import Destaque from './components/2 - destaque/destaque';
+import Form from './components/3 - form/form';
+import Beneficio1 from './components/4 - beneficios/beneficio1';
+import Beneficio2 from './components/4 - beneficios/beneficio2';
+import Beneficio3 from './components/4 - beneficios/beneficio3';
+import Beneficio4 from './components/4 - beneficios/beneficio4';
+import Map from './components/rodape/map';
+import Footer from './components/rodape/footer';
+
+
+class App extends Component {
+  
+  
+  render() {        
+   
+   
+    return (
+      
+      <div>
+
+        <Cabecalho/>
+        <Destaque/>
+        <Form/>
+        <Beneficio1/>
+        <Beneficio2/>
+        <Beneficio3/>
+        <Beneficio4/>
+        <Map/>
+        <Footer/>        
+
+      </div>
+    );
+  }
 }
 
 export default App;
