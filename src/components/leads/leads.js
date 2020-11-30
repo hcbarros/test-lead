@@ -39,6 +39,8 @@ const Leads = () => {
 
                 <div id="container-table">
 
+                    <div>
+
                     {showTable && 
                         <table className="tableLeads">
                             <caption>Leads</caption>                    
@@ -72,8 +74,7 @@ const Leads = () => {
                                         </a>
                                     </td>                             
                                 </tr>
-                                ))}
-                        
+                                ))}                                                   
 
                             {/* <button
                                     type="button"
@@ -83,6 +84,8 @@ const Leads = () => {
                                     </button>         */}
 
                         </table>}
+
+                        </div>    
 
                     </div>
                                 
