@@ -46,12 +46,12 @@ public class LeadController {
 		return leadService.salvar(lead);
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping(path = "/{id}")
 	public Lead alterar(@PathVariable Integer id, @RequestBody Lead lead) {
 		return leadService.alterar(id, lead);
 	}
 	
-	@DeleteMapping("{id}")
+	@DeleteMapping(path = "/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void excluir(@PathVariable Integer id) {
 		leadService.excluir(id);
