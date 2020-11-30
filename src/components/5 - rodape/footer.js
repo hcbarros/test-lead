@@ -35,7 +35,7 @@ export default class Footer extends React.Component {
 
        this.setState({imgShow: true}); 
               
-       axios.put("http://localhost:8081/lead/2", 
+       axios.post("https://test-lead-api.herokuapp.com/lead", 
                 {nome: this.formNome.current.value,
                  email: this.formEmail.current.value,
                  telefone: this.formPhone.current.value}   

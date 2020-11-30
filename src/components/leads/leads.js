@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import del from '../../images/delete.png';
@@ -9,39 +9,73 @@ import loader from '../../images/loader.gif';
 const Leads = () => {
 
 
+    const [redirect, setRedirect] = useState(false);
     const [showTable, setShowTable] = useState(false);
+    const [imgShow, setImgShow] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [leads, setLeads] = useState([]);    
+    const nome = useRef(null);
+    const email = useRef(null);
+    const telefone = useRef(null);
+    const id = useRef(null);
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+       
+       setImgShow(true); 
+              
+       await axios.put("https://test-lead-api.herokuapp.com/lead/"+id.current.value, 
+                        {nome: nome.current.value,
+                        email: email.current.value,
+                        telefone: telefone.current.value}   
+                      )
+                  .then(resp => carregarDados())
+                  .catch(error =>  alert(error));                                 
+    }
+
+
+    const alterar = ({item}) => {
+
+        nome.current.value = item.nome;
+        email.current.value = item.email;
+        telefone.current.value = item.telefone;
+        id.current.value = item.id;
+        setShowModal(true);
+    }
+
 
     const excluir = async (id) => {
    
-        axios.delete(`https://test-lead-api.herokuapp.com/test-lead/lead/${id}`)
+        setShowTable(false);
+        
+           await axios.delete(`https://test-lead-api.herokuapp.com/lead/${id}`)
+
+                      .then(resp => carregarDados())
+                      .catch(error =>  alert(error));                          
+    }
+
+
+    const carregarDados = () => {
+
+        axios.get("https://test-lead-api.herokuapp.com/lead")
              .then((response) => {
          
                  setLeads(response.data);
                  setShowTable(true);
+                 setImgShow(false);
+                 setShowModal(false);    
               })
-             .catch((error) =>  {
-             
-                 alert(error)}
-             )                             
+             .catch(error =>  alert(error));                                         
+    }
+
+    const getData = (d) => {        
+        return new Date(new Date(d[0], d[1]-1, d[2], d[3], d[4], d[5]).getTime() - 10800000)
+        .toLocaleString();         
     }
 
 
-    const handleSubmit = async () => {
-   
-        axios.get("https://test-lead-api.herokuapp.com/test-lead/lead")
-             .then((response) => {
-         
-                 setLeads(response.data);
-                 setShowTable(true);
-              })
-             .catch((error) =>  {
-             
-                 alert(error)}
-             )                             
-    }
-
-    handleSubmit();
+    useEffect(() => carregarDados(), []);
 
 
         return (        
@@ -72,33 +106,64 @@ const Leads = () => {
                                 <tr key={item.id} className="tableLeads">
                                     <td className="tableLeads">{item.id}</td>
                                     <td className="tableLeads">{item.nome}</td>
-                                    <td className="tableLeads">${item.email}</td>
+                                    <td className="tableLeads">{item.email}</td>
                                     <td className="tableLeads">{item.telefone}</td>
-                                    <td className="tableLeads">{item.criadoEm}</td>
-                                    <td className="tableLeads">{item.atualizadoEm}</td>
                                     <td className="tableLeads">
-                                        <a>
+                                        {getData(item.criadoEm)}
+                                    </td>
+                                    <td className="tableLeads">
+                                        {item.atualizadoEm != null ? getData(item.atualizadoEm) : null}
+                                    </td>
+                                    <td className="tableLeads">
+                                        <a onClick={() => alterar({item})}>
                                             <img className="imgLeads" src={edit} alt="Imagem de editar"/>
                                         </a>
                                     </td>
                                     <td className="tableLeads">
-                                        <a>
+                                        <a onClick={() => excluir(item.id)}>
                                             <img className="imgLeads" src={del} alt="Imagem da lixeira"/>
                                         </a>
                                     </td>                             
                                 </tr>
-                                ))}                                                   
+                                ))}            
 
-                            {/* <button
-                                    type="button"
-                                    onClick={() => handleSubmit()}                        
-                                    >
-                                    Telefone
-                                    </button>         */}
-
-                        </table>}
+                        </table>}                                   
 
                    </div>
+
+                   <div className="container-fluid" id={showModal ? 'modal-show' : 'modal-hide'} >
+                        <div className="row d-flex justify-content-center align-items-center">
+                            <div className="col-12 d-flex justify-content-center align-items-center">
+                                <div className="modal-whatsapp-wrapper">
+                                    <div className="modal-header">
+                                        <h3>Alterar dados<br/><span>Formulário</span></h3>
+                                        <div id="modal-close" onClick={() => setShowModal(false)} >&times;</div>
+                                    </div>
+                                    <div className="modal-body">
+                                        <form id="form-whatsapp" onSubmit={handleSubmit}>
+                                            <div className="form-group">
+                                                <input placeholder="Nome" className="form-control" ref={nome} type="text" name="name" id="nome"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input placeholder="E-mail" className="form-control" ref={email} type="text" name="email" id="email"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input placeholder="Telefone" className="form-control" ref={telefone} type="text" name="phone" id="telefone"/>
+                                            </div>
+
+                                            <input ref={id} type="hidden" name="id" id="id"/>
+
+                                            <button id="send" style={{visibility: imgShow ? 'hidden' : 'visible'}}>Enviar</button>                                    
+                                        </form>                                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id={imgShow ? 'img-show' : 'img-hide'}>
+                        <img src={loader} alt="loader"></img>
+                    </div>
                                 
             </div>
         );    
