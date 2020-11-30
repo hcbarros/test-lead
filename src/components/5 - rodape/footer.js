@@ -1,18 +1,20 @@
 import React from 'react';
 import axios from 'axios';
+import {Redirect} from 'react-router-dom';
 import logo from '../../images/misc/logo.png';
 import whatsapp from '../../images/svg/whatsapp.svg';  
 import loader from '../../images/loader.gif';
 
 
-export default class extends React.Component {
+export default class Footer extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {          
             showResults: false,
-            imgShow: false
+            imgShow: false,
+            redirect: false
         }       
 
         this.formNome = React.createRef();
@@ -32,7 +34,7 @@ export default class extends React.Component {
         event.preventDefault();
 
        this.setState({imgShow: true}); 
-
+       
        axios.post("https://test-lead-api.herokuapp.com/test-lead/lead", 
                 {nome: this.formNome.current.value,
                  email: this.formEmail.current.value,
@@ -40,14 +42,13 @@ export default class extends React.Component {
              )
             .then((response) => {
                 
-                this.setState({imgShow: false});
-                alert(JSON.stringify(response))
+                this.setState({imgShow: false, redirect: true});                
              })
             .catch((error) =>  {
             
                 this.setState({imgShow: false});
-                alert(error)}
-            )                             
+                alert("Erro no servidor!");
+            });                             
      }
 
          
@@ -56,6 +57,8 @@ export default class extends React.Component {
         return (        
 
             <div>
+
+            {this.state.redirect && <Redirect to='/leads'/>}
 
             <footer className="footer">
                 <div className="footer__logo"><img src={logo} alt="imagem contem a logo da Nacional"/></div>
