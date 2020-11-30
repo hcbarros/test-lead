@@ -12,6 +12,21 @@ const Leads = () => {
     const [showTable, setShowTable] = useState(false);
     const [leads, setLeads] = useState([]);    
 
+    const excluir = async (id) => {
+   
+        axios.delete(`https://test-lead-api.herokuapp.com/test-lead/lead/${id}`)
+             .then((response) => {
+         
+                 setLeads(response.data);
+                 setShowTable(true);
+              })
+             .catch((error) =>  {
+             
+                 alert(error)}
+             )                             
+    }
+
+
     const handleSubmit = async () => {
    
         axios.get("https://test-lead-api.herokuapp.com/test-lead/lead")
@@ -37,9 +52,7 @@ const Leads = () => {
                     <img src={loader} className="img-loader" alt="loader"></img>
                 </div>     
 
-                <div id="container-table">
-
-                    <div>
+                <div id="container-table">                   
 
                     {showTable && 
                         <table className="tableLeads">
@@ -85,9 +98,7 @@ const Leads = () => {
 
                         </table>}
 
-                        </div>    
-
-                    </div>
+                   </div>
                                 
             </div>
         );    

@@ -17,14 +17,6 @@
    text-align: center;      
 }
 
-#container-table {
-    display: flex;
-    justify-content: center;
-    justify-items: center;        
-    
-    
-}
-
 #loader-leads {
     display: flex;
     justify-content: center;
