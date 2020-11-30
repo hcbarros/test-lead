@@ -21,37 +21,35 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.lead.model.Lead;
 import br.com.lead.service.LeadService;
 
-
 @RestController
-@RequestMapping("/lead")
 @Validated
 public class LeadController {
 
 	@Autowired
 	private LeadService leadService;
 	
-	@GetMapping(path = "/{id}")
+	@GetMapping(value = "/lead/{id}")
 	public Lead umLead(@PathVariable Integer id) {
 		return leadService.getLead(id);		
 	}
 	
-	@GetMapping
+	@GetMapping(value = "/lead")
 	public List<Lead> todos(Lead filtro) {
 		return leadService.filtraPor(filtro);
 	}
 	
-	@PostMapping
+	@PostMapping(value = "/lead")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Lead salvar(@RequestBody @Valid Lead lead) {
 		return leadService.salvar(lead);
 	}
 	
-	@PutMapping(path = "/{id}")
+	@PutMapping(value = "/lead/{id}")
 	public Lead alterar(@PathVariable Integer id, @RequestBody Lead lead) {
 		return leadService.alterar(id, lead);
 	}
 	
-	@DeleteMapping(path = "/{id}")
+	@DeleteMapping(value = "/lead/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void excluir(@PathVariable Integer id) {
 		leadService.excluir(id);
