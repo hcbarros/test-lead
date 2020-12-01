@@ -16,6 +16,27 @@ const Form = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        
+        if(!/\S/.test(nome.current.value)) {
+            alert("O nome deve conter algum valor!")
+            return;
+        }
+
+        if(telefone.current.value.length < 14) {
+            alert("Informe um telefone no formato correto!")
+            return;
+        }
+
+        if(email.current.value.length > 100 || nome.current.value.length > 100) {
+            alert("Nome e email devem possuir menos de 100 caracteres!")
+            return;
+        }
+
+        const filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        if(!filter.test(email.current.value)) {
+            alert("Informe um email válido!");     
+            return;
+        }    
 
        setImgShow(true); 
               
@@ -44,25 +65,24 @@ const Form = () => {
                     <legend className="legend">Preencha o formulário e <strong>ganhe condições exclusivas</strong></legend>
                     <div className="col-sm-4 col-md-12">
                         <label className="label" for="nome">Nome</label>
-                        <input type="text" ref={nome} name="name" id="nome" className="form-control required"/>
+                        <input type="text" ref={nome} name="name" maxLength="100" id="nome" className="form-control required"/>
                     </div>
                     <div className="col-sm-4 col-md-12">
                         <label className="label" for="email">Email</label>
-                        <input type="email" ref={email} name="email" id="email" className="form-control required"/>
+                        <input type="email" ref={email} name="email" maxLength="100" id="email" className="form-control required"/>
                     </div>
                     <div className="col-sm-4 col-md-12">
                         <label className="label" for="telefone">Telefone</label>
-                        <input type="tel" ref={telefone} name="phone" id="telefone" minlength="14" className="form-control telefone required"/>
+                        <input type="tel" ref={telefone} name="phone" id="telefone" maxLength="15" minlength="14" className="form-control telefone required"/>
                     </div>
                     <input type="hidden" name="modelo" value="Up!"/>
                     <input type="hidden" name="cidade" value="Natal"/>
                     <input type="hidden" name="product_id" value="1" id="product"/>
                     <div className="col-sm-12 col-md-12">
-                        <button style={{visibility: imgShow ? 'hidden' : 'visible'}} className="btn btn-register">Enviar</button>
-                        <div id={imgShow ? 'img-show' : 'img-hide'}>
-                            <img src={loader} alt="loader"></img>
-                        </div>
 
+                        <button style={{display: !imgShow ? 'block' : 'none'}} className="btn btn-register">Enviar</button>
+                        <img style={{display: imgShow ? 'block' : 'none'}} src={loader} className="btn" alt="loader" />
+           
                     </div>
                 </fieldset>
             </form>

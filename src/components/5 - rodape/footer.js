@@ -33,6 +33,28 @@ export default class Footer extends React.Component {
     handleSubmit = async (event) => {
         event.preventDefault();
 
+        if(!/\S/.test(this.formNome.current.value)) {
+            alert("O nome deve conter algum valor!")
+            return;
+        }
+
+        if(this.formPhone.current.value.length < 14) {
+            alert("Informe um telefone no formato correto!")
+            return;
+        }
+
+        if(this.formNome.current.value.length > 100 || this.formEmail.current.value.length > 100) {
+            alert("Nome e email devem possuir menos de 100 caracteres!")
+            return;
+        }
+
+        const filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        if(!filter.test(this.formEmail.current.value)) {
+            alert("Informe um email válido!");     
+            return;
+        }    
+
+
        this.setState({imgShow: true}); 
               
        axios.post("https://test-lead-api.herokuapp.com/lead", 
@@ -98,13 +120,13 @@ export default class Footer extends React.Component {
                             <div className="modal-body">
                                 <form id="form-whatsapp" onSubmit={this.handleSubmit}>
                                     <div className="form-group">
-                                        <input placeholder="Nome" className="form-control" ref={this.formNome} type="text" name="name" id="nome"/>
+                                        <input placeholder="Nome" maxLength="100" className="form-control required" ref={this.formNome} type="text" name="name" id="nome"/>
                                     </div>
                                     <div class="form-group">
-                                        <input placeholder="E-mail" className="form-control" ref={this.formEmail} type="text" name="email" id="email"/>
+                                        <input placeholder="E-mail" maxLength="100" className="form-control required" ref={this.formEmail} type="email" name="email" id="email"/>
                                     </div>
                                     <div class="form-group">
-                                        <input placeholder="Telefone" className="form-control" ref={this.formPhone} type="text" name="phone" id="telefone"/>
+                                        <input placeholder="Telefone" maxLength="15" className="form-control telefone required" ref={this.formPhone} type="tel" name="phone" id="telefone"/>
                                     </div>
                                     <button id="send" style={{visibility: this.state.imgShow ? 'hidden' : 'visible'}}>Enviar</button>                                    
                                 </form>                                                            

@@ -23,6 +23,29 @@ const Leads = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+
+        if(!/\S/.test(nome.current.value)) {
+            alert("O nome deve conter algum valor!")
+            return;
+        }
+
+        if(telefone.current.value.length < 14) {
+            alert("Informe um telefone no formato correto!")
+            return;
+        }
+
+        if(email.current.value.length > 100 || nome.current.value.length > 100) {
+            alert("Nome e email devem possuir menos de 100 caracteres!")
+            return;
+        }
+
+        const filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        if(!filter.test(email.current.value)) {
+            alert("Informe um email válido!");     
+            return;
+        }    
+
        
        setImgShow(true); 
               
@@ -99,7 +122,9 @@ const Leads = () => {
 
                     {showTable && 
                         <table className="tableLeads">
-                            <caption>Leads</caption>                    
+
+                            <caption id="caption">Leads</caption>      
+                                          
                                 <tr className="tableLeads">
                                     <th className="tableLeads">Id</th>
                                     <th className="tableLeads">Nome</th>
@@ -151,13 +176,13 @@ const Leads = () => {
                                     <div className="modal-body">
                                         <form id="form-whatsapp" onSubmit={handleSubmit}>
                                             <div className="form-group">
-                                                <input placeholder="Nome" className="form-control" ref={nome} type="text" name="name" id="nome"/>
+                                                <input placeholder="Nome" maxLength="100" className="form-control required" ref={nome} type="text" name="name" id="nome"/>
                                             </div>
                                             <div class="form-group">
-                                                <input placeholder="E-mail" className="form-control" ref={email} type="text" name="email" id="email"/>
+                                                <input placeholder="E-mail" maxLength="100" className="form-control required" ref={email} type="email" name="email" id="email"/>
                                             </div>
                                             <div class="form-group">
-                                                <input placeholder="Telefone" className="form-control" ref={telefone} type="text" name="phone" id="telefone"/>
+                                                <input placeholder="Telefone" maxLength="15" className="form-control telefone required" ref={telefone} type="tel" name="phone" id="telefone"/>
                                             </div>
 
                                             <input ref={id} type="hidden" name="id" id="id"/>
