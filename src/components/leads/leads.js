@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom';
 import del from '../../images/delete.png';
 import edit from '../../images/edit.png';
 import loader from '../../images/loader.gif';
+import jogga from '../../images/svg/jogga-amarelo.svg';
 
 
 const Leads = () => {
@@ -82,9 +83,17 @@ const Leads = () => {
 
             <div>
 
+                {redirect && <Redirect to='/'/>}
+
                 <div id={!showTable ? 'loader-leads' : 'img-hide'}>
-                    <img src={loader} className="img-loader" alt="loader"></img>
+                    <img src={loader} className="img-loader" alt="loader"/>
                 </div>     
+
+                <div id="headerLeads">
+                    <a href="https://www.jogga.com.br"><img src={jogga} alt="logo da Jogga"/></a>
+                  
+                    <button onClick={() => setRedirect(true)}>Voltar</button>
+                </div>
 
                 <div id="container-table">                   
 
