@@ -4,8 +4,6 @@ Esse é um projeto composto por uma API desenvolvida em Spring Boot(branch maste
 Foi realizado o deploy da API no site Heroku com -> https://test-lead-api.herokuapp.com/ e utilizando os endpoints https://test-lead-api.herokuapp.com/lead e
 https://test-lead-api.herokuapp.com/lead/{id} pode-se cadastrar, editar ou excluir dados através dos verbos GET, POST, DELETE e PUT.
 
-No Spring Boot foi utilizado o padrão MVC com as camadas do modelo, serviço, controle, com uma pequena configuração para permitir o uso da API a partir de qualquer origem. Caso haja necessidade de futuras mudanças na aplicação, o Spring Boot permite uma configuração de segurança bem robusta, com apenas alguns passos. Por isso essa biblioteca é sempre uma opção interessante. Como banco de dados, foi utilizado o H2 que fica embutido na própria aplicação.
-
 Esse projeto pode ser facilmente executado utilizando a IDE Eclipse que se encontra no endereço https://spring.io/tools bastando clicar na opção "Maven Install" e em seguida "Spring Boot App".
 
 Na camada visual, foi utilizada uma página HTML já criada com uma estrutura, sendo dividida em componentes através da biblioteca React.js, também sendo acrescentada várias alterações para se adequar a nova estrutura. Uma outra página também foi criada para testar a API citada anteriormente, podendo-se fazer consultas, edição e exclusão de dados. Foi realizado o deploy do projeto React no Heroku, podendo ser acessado por meio do endereco https://lead-react.herokuapp.com/ 
