@@ -6,7 +6,12 @@ https://test-lead-api.herokuapp.com/lead/{id} pode-se cadastrar, editar ou exclu
 
 Esse projeto pode ser facilmente executado utilizando a IDE Eclipse que se encontra no endereço https://spring.io/tools bastando clicar na opção "Maven Install" e em seguida "Spring Boot App".
 
-Na camada visual, foi utilizada uma página HTML já criada com uma estrutura, sendo dividida em componentes através da biblioteca React.js, também sendo acrescentada várias alterações para se adequar a nova estrutura. Uma outra página também foi criada para testar a API citada anteriormente, podendo-se fazer consultas, edição e exclusão de dados. Foi realizado o deploy do projeto React no Heroku, podendo ser acessado por meio do endereco https://lead-react.herokuapp.com/ 
-Essa aplicação, por sua vez, já está utilizando a API diretamente do endereço https://test-lead-api.herokuapp.com/lead
+Na camada visual, foi utilizada uma página HTML já criada com uma estrutura, sendo dividida em componentes através da biblioteca React.js, também sendo acrescentada várias alterações para se adequar a nova estrutura. Uma outra página também foi criada para testar a API citada anteriormente, podendo-se fazer consultas, edição e exclusão de dados. Foi realizado o deploy do projeto React no Heroku, podendo ser acessado por meio do endereco:
+
+##https://lead-react.herokuapp.com/ 
+
+Essa aplicação, por sua vez, já está utilizando a API diretamente do endereço:
+
+##https://test-lead-api.herokuapp.com/lead
 
 As instruções para se executar o projeto React encontram-se no README do projeto que está na branch React, mas é bastante simples. após fazer o download do projeto, executa-se o comando "yarn install" para carregar os "node modules", em seguida, executa-se o comando yarn start. 
